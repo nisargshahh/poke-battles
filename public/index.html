@@ -27,7 +27,7 @@
                     <button onclick="searchPokemon(1)">Search</button>
                 </div>
                 <div class="level-control">
-                    <span class="level-display">Level: <span id="levelDisplay1">50</span></span>
+                    <span class="level-display">Level: <span class="leveldi" id="levelDisplay1">50</span></span>
                     <input type="range" min="1" max="100" value="50" class="level-slider" id="levelSlider1"
                         oninput="updateLevel(1)">
                 </div>
@@ -46,7 +46,7 @@
                     <button onclick="searchPokemon(2)">Search</button>
                 </div>
                 <div class="level-control">
-                    <span class="level-display">Level: <span id="levelDisplay2">50</span></span>
+                    <span class="level-display">Level: <span class="leveldi" id="levelDisplay2">50</span></span>
                     <input type="range" min="1" max="100" value="50" class="level-slider" id="levelSlider2"
                         oninput="updateLevel(2)">
                 </div>
@@ -60,10 +60,13 @@
             <div class="battle-theme" id="battleTheme"></div>
             <div class="battle-status" id="battleStatus">
                 <div class="loading" style="display: none;">
-                    🔄 Simulating battle...
+                    Simulating battle...
                 </div>
             </div>
             <div class="battle-narrative" id="battleNarrative"></div>
+        </div>
+        <div class="author">
+            <h3><a href="https://github.com/nisargshahh">Nisarg Shah &#169; 2024</a></h3>
         </div>
     </div>
     <script src="./script.js"></script>

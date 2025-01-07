@@ -91,7 +91,9 @@ function createPokemonCard(data, cardElement, level) {
 
 function updateLevel(side) {
   const level = document.getElementById(`levelSlider${side}`).value;
-  document.getElementById(`levelDisplay${side}`).textContent = level;
+  const levelD =  document.getElementById(`levelDisplay${side}`);
+  levelD.textContent = level;
+  levelD.style.fontFamily = '"Segoe UI", sans-serif';
 
   if (currentPokemonData[side]) {
     createPokemonCard(
@@ -239,22 +241,22 @@ async function simulateBattle() {
     const themeEmojis = ["⚡", "🔥", "💫", "🌟", "⚔️", "🛡️", "🎯", "💥"];
     const randomEmojis = () =>
       themeEmojis[Math.floor(Math.random() * themeEmojis.length)];
-    const battleTheme = `${randomEmojis()} Epic Battle: ${side1.pokemon.name.toUpperCase()} vs ${side2.pokemon.name.toUpperCase()} ${randomEmojis()}`;
+    const battleTheme = `${randomEmojis()} ${side1.pokemon.name.toUpperCase()} vs ${side2.pokemon.name.toUpperCase()} ${randomEmojis()}`;
 
     // Update the UI with battle results
     document.getElementById("battleTheme").textContent = battleTheme;
     document.getElementById("battleNarrative").innerHTML = battleData.battle
       .replace(/\*\*/g, "") // Remove markdown bold
       .replace(/\*/g, "") // Remove markdown italic
-      .replace(/Turn \d+:/g, (match) => `💥 ${match}`) // Add emoji to turns
-      .replace(/Critical hit!/g, "⚡ Critical hit! ⚡")
-      .replace(/wins the battle!/g, "🏆 wins the battle! 🎉")
+      .replace(/Turn \d+:/g, (match) => `${match}💥`) // Add emoji to turns
+      .replace(/Critical hit!/g, "Critical hit!⚡")
+      .replace(/wins the battle!/g, " wins the battle! 🏆🏆🏆")
       .replace(/\n/g, "<br>"); // Convert newlines to HTML breaks
 
     // loadingDiv.style.display = 'none';
   } catch (error) {
     console.error("Battle simulation error:", error);
-    battleStatus.innerHTML = "❌ Failed to simulate battle. Please try again.";
+    battleStatus.innerHTML = "Failed to simulate battle❌❌. Please try again.";
   }
 }
 
