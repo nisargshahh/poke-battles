@@ -219,7 +219,7 @@ async function simulateBattle() {
 
   try {
     const response = await fetch(
-      'http://localhost:3000/simulate-battle',
+      'https://poke-battles.vercel.app/simulate-battle',
       {
         // change the link to localhost:3000 during dev.
         method: "POST",
