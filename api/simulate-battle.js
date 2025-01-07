@@ -1,39 +1,13 @@
 import { Cerebras } from "@cerebras/cerebras_cloud_sdk";
-import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";
-import open from "open";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 
-const baseURL =
-  process.env.NODE_ENV === "production"
-    ? "https://poke-battles.vercel.app/"
-    : "http://localhost:3000";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 dotenv.config();
-
-const app = express();
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.use(cors({ origin: baseURL }));
-
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 const client = new Cerebras({
   apiKey: process.env.CEREBRAS_API_KEY,
 });
 
-// Helper functions (unchanged)
+// Helper functions
 function formatPokemonForBattle(pokemon, level) {
   return {
     name: pokemon.name,
@@ -100,7 +74,12 @@ Format guidelines:
 Make it exciting and detailed!`;
 }
 
-app.post("/simulate-battle", async (req, res) => {
+// Main function to handle requests
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
+
   try {
     const { pokemon1, pokemon2, level1, level2 } = req.body;
 
@@ -131,17 +110,9 @@ app.post("/simulate-battle", async (req, res) => {
     });
   } catch (error) {
     console.error("Battle simulation error:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to simulate battle", details: error.message });
+    res.status(500).json({
+      error: "Failed to simulate battle",
+      details: error.message,
+    });
   }
-});
-
-// Define the port
-const PORT = process.env.PORT || 3000;
-
-// Start the server and open the browser
-app.listen(PORT, async () => {
-  console.log(`Battle simulator running on ${baseURL}`);
-  await open(baseURL);
-});
+}
