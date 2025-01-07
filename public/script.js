@@ -258,4 +258,3 @@ async function simulateBattle() {
   }
 }
 
-document.querySelector(".container").appendChild(battleButton);
