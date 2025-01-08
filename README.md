@@ -24,6 +24,11 @@ Poke Battles is a web-based application that simulates Pokémon battles, allowin
    ```bash
    npm install
    ```
+3. **Add your .env file**:
+   Add a .env file, get your Cerebras API Key and write this
+   ```
+   CEREBRAS_API_KEY = your_api_key
+   ```
 
 ## Usage
 
